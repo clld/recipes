@@ -23,7 +23,7 @@ The script requires two arguments:
 - a Grambank feature ID
 
 ```bash
-$ python cldf_example.py Grambank/cldf/StructureDataset-metadata.json GB020
+$ python cldf_example.py StructureDataset-metadata.json GB020
 
 GB020: Are there definite or specific articles?
 
@@ -57,5 +57,18 @@ southamerica
 ## Accessing Grambank data in SQLite
 
 The `pycldf` package comes with a command to load a CLDF dataset into a SQLite database,
-facilitating further analysis and manipulation via SQL.
+facilitating further analysis and manipulation via SQL:
 
+```bash
+$ time cldf createdb StructureDataset-metadata.json grambank.sqlite
+INFO    <cldf:v1.0:StructureDataset at .> loaded in grambank.sqlite
+
+real	0m12.584s
+```
+
+While loading the dataset into SQLite isn't particularly quick, querying the database may make
+be a lot more performant than the equivalent operations using Python. So running the roughly
+equivalent SQL query in [`values_per_area.sql`](values_per_area.sql) results in
+```bash
+
+```
