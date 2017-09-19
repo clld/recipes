@@ -1,7 +1,12 @@
 
 # Accessing Grambank data
 
+- [Using off-the-shelve CSV tools](#csvkit)
+- [`pycldf`](#pycldf)
+- [SQLite](#sqlite)
 
+
+<a id="csvkit"> </a>
 ## Using off-the-shelve CSV tools
 
 A CLDF dataset is - basically - just a set of CSV files. Thus, it can be accessed using off-the-shelve
@@ -166,7 +171,7 @@ $ csvstat grambank.csv
 Row count: 144683
 ```
 
-
+<a id="pycldf"> </a>
 ## Using `pycldf` programmatically from Python scripts
 
 The script [`values_per_area.py`](values_per_area.py) gives an example how the `pycldf` package
@@ -218,7 +223,7 @@ southamerica
   present: 17.86%
 ```
 
-
+<a id="sqlite"> </a>
 ## Accessing Grambank data in SQLite
 
 The `pycldf` package comes with a command to load a CLDF dataset into a SQLite database,
