@@ -52,3 +52,10 @@ southamerica
   absent: 64.29%
   present: 17.86%
 ```
+
+
+## Accessing Grambank data in SQLite
+
+The `pycldf` package comes with a command to load a CLDF dataset into a SQLite database,
+facilitating further analysis and manipulation via SQL.
+
