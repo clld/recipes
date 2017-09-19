@@ -11,11 +11,12 @@
 
 A CLDF dataset is - basically - just a set of CSV files. Thus, it can be accessed using off-the-shelve
 tools to handle CSV data (e.g. spreadsheet processors). One such tool which can be particularly useful as
-"pre-processor" for CLDF data is `csvkit`. In particular the `csvjoin` command, installed with `csvkit` can
+"pre-processor" for CLDF data is [`csvkit`](https://csvkit.readthedocs.io/). In particular the 
+[`csvjoin`](https://csvkit.readthedocs.io/en/1.0.2/scripts/csvjoin.html) command, installed with `csvkit` can
 be used to merge the data from the various constituent CSV files of a CLDF dataset into a single file for
-easier processing, e.g. in R.
+easier processing, e.g. in statistical analysis tools like [R](https://www.r-project.org/) or [Pandas](http://pandas.pydata.org/).
 
-The typical usage with the Grambank data - a [CLDF structure dataset](FIXME) - looks as follows:
+The typical usage with the Grambank data - a [CLDF structure dataset](https://github.com/glottobank/cldf/tree/master/modules/StructureDataset) - looks as follows:
 1. We join the language metadata to each value row
 2. then join the feature metadata
 3. and finally pipe the result to a new CSV file.
@@ -30,25 +31,21 @@ some machines):
 ```bash
 $ csvstat grambank.csv 
   1. "ID"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         144683
 	...
   2. "Language_ID"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         993
 	...
   3. "Parameter_ID"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         202
 	...
   4. "Value"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         5
@@ -58,88 +55,57 @@ $ csvstat grambank.csv
 	                       ? (20929x)
 	                       2 (2027x)
 	                       3 (622x)
-
   5. "Comment"
-
 	Type of data:          Text
 	...
   6. "Source"
-
 	Type of data:          Text
-	
   7. "Name"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         993
 	Longest value:         37 characters
 	Most common values:    Javanese (199x)
 	                       Sundanese (199x)
-	                       Kerinci (199x)
-	                       Betawi (199x)
-	                       Maiani (199x)
-
   8. "Latitude"
-
 	Type of data:          Number
 	Contains null values:  True (excluded from calculations)
-	Unique values:         965
 	Smallest value:        -54
 	Largest value:         70,669
-	Sum:                   656.145,364
 	Mean:                  4,666
 	Median:                5,383
 	StDev:                 17,976
 	Most common values:    None (4056x)
-	                       -7 (232x)
-	                       -0,572 (199x)
-	                       -6,897 (199x)
-	                       -1,937 (199x)
-
   9. "Longitude"
-
 	Type of data:          Number
 	Contains null values:  True (excluded from calculations)
-	Unique values:         962
 	Smallest value:        -178,137
 	Largest value:         179,198
-	Sum:                   6.635.487,106
 	Mean:                  47,185
 	Median:                31,205
 	StDev:                 81,143
 	Most common values:    None (4056x)
-	                       -68,5 (361x)
-	                       113 (293x)
-	                       145,994 (206x)
-	                       144,46 (202x)
-
  10. "glottocode"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         993
 	...
  11. "iso639P3code"
-
 	Type of data:          Text
 	Contains null values:  True (excluded from calculations)
 	Unique values:         949
 	Longest value:         3 characters
 	...
  12. "macroarea"
-
 	Type of data:          Text
 	Contains null values:  True (excluded from calculations)
 	Unique values:         7
-	Longest value:         12 characters
 	Most common values:    africa (54848x)
 	                       pacific (34424x)
 	                       eurasia (18560x)
 	                       southamerica (14489x)
 	                       australia (12672x)
-
  13. "family"
-
 	Type of data:          Text
 	Contains null values:  True (excluded from calculations)
 	Unique values:         133
@@ -149,19 +115,14 @@ $ csvstat grambank.csv
 	                       Afro-Asiatic (12610x)
 	                       Pama-Nyungan (7453x)
 	                       None (5752x)
-
  14. "Name2"
-
 	Type of data:          Text
 	Contains null values:  False
 	Unique values:         202
   ...
  15. "Domain"
-
 	Type of data:          Text
 	Contains null values:  False
-	Unique values:         7
-	Longest value:         74 characters
 	Most common values:    1:present;0:absent;?:Not known (139770x)
 	                       1:Dem-N;2:N-Dem;3:both.;?:Not known (915x)
 	                       1:Num-N;2:N-Num;3:both.;?:Not known (913x)
@@ -174,7 +135,7 @@ Row count: 144683
 <a id="pycldf"> </a>
 ## Using `pycldf` programmatically from Python scripts
 
-The script [`values_per_area.py`](values_per_area.py) gives an example how the `pycldf` package
+The script [`values_per_area.py`](values_per_area.py) gives an example how the [`pycldf` package](https://github.com/glottobank/pycldf)
 can be used to read the Grambank data from within a Python program.
 
 
