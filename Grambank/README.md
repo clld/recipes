@@ -67,8 +67,29 @@ real	0m12.584s
 ```
 
 While loading the dataset into SQLite isn't particularly quick, querying the database may make
-be a lot more performant than the equivalent operations using Python. So running the roughly
-equivalent SQL query in [`values_per_area.sql`](values_per_area.sql) results in
+be a lot more performant than the equivalent operations using Python. So the SQL query in 
+[`values_per_area.sql`](values_per_area.sql), which is roughly equivalent to the example above, runs in
+less than 0.1 secs:
 ```bash
+$ time cat values_per_area.sql | sqlite3 grambank.sqlite 
+africa|0|40.5063291139241
+africa|1|52.5316455696203
+africa|?|6.9620253164557
+australia|0|82.8828828828829
+australia|1|8.10810810810811
+australia|?|9.00900900900901
+eurasia|0|68.8679245283019
+eurasia|1|26.4150943396226
+eurasia|?|4.71698113207547
+northamerica|0|38.7096774193548
+northamerica|1|54.8387096774194
+northamerica|?|6.45161290322581
+pacific|0|58.1395348837209
+pacific|1|39.5348837209302
+pacific|?|2.32558139534884
+southamerica|0|64.2857142857143
+southamerica|1|17.8571428571429
+southamerica|?|17.8571428571429
 
+real	0m0.066s
 ```
