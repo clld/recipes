@@ -1,6 +1,17 @@
 
 # Accessing Grambank data
 
+The [Grambank](http://grambank.clld.org) data is archived with [ZENODO](https://zenodo.org) as CLDF structure dataset.
+Below we describe methods to access this data from various computing environments. For all methods we assume an
+unzipped download of the CLDF dataset to be available on a local disk, i.e. a directory `Grambank` with the following contents:
+- `StructureDataset-metadata.json`: The machine readable description of the dataset
+- `values.csv`: The main data file, containing all codings
+- `languages.csv`
+- `parameters.csv`
+- `sources.bib`
+
+
+These files can be accessed in various ways:
 - [Using off-the-shelve CSV tools](#csvkit)
 - [`pycldf`](#pycldf)
 - [SQLite](#sqlite)
