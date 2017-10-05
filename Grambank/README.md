@@ -12,7 +12,7 @@ unzipped download of the CLDF dataset to be available on a local disk, i.e. a di
 
 
 These files can be accessed in various ways:
-- [Using off-the-shelve CSV tools](#csvkit)
+- [Using off-the-shelf CSV tools](#csvkit)
 - [`pycldf`](#pycldf)
 - [SQLite](#sqlite)
 
@@ -20,7 +20,7 @@ These files can be accessed in various ways:
 <a id="csvkit"> </a>
 ## Using off-the-shelve CSV tools
 
-A CLDF dataset is - basically - just a set of CSV files. Thus, it can be accessed using off-the-shelve
+A CLDF dataset is - basically - just a set of CSV files. Thus, it can be accessed using off-the-shelf
 tools to handle CSV data (e.g. spreadsheet processors). One such tool which can be particularly useful as
 "pre-processor" for CLDF data is [`csvkit`](https://csvkit.readthedocs.io/). In particular the 
 [`csvjoin`](https://csvkit.readthedocs.io/en/1.0.2/scripts/csvjoin.html) command, installed with `csvkit` can
@@ -209,7 +209,7 @@ real	0m12.584s
 ```
 
 While loading the dataset into SQLite isn't particularly quick, querying the database may make
-be a lot more performant than the equivalent operations using Python. So the SQL query in 
+be a lot quicker than the equivalent operations using Python. So the SQL query in 
 [`values_per_area.sql`](values_per_area.sql), which is roughly equivalent to the example above, runs in
 less than 0.1 secs:
 ```bash
