@@ -235,3 +235,61 @@ southamerica|?|17.8571428571429
 
 real	0m0.066s
 ```
+
+<a id="r"> </a>
+## Accessing Grambank data in R
+
+Assuming that `languages.csv` and `values.csv` are in your current working directory, launch an `R` session and execute:
+
+```R
+l <- read.csv("languages.csv")
+v <- read.csv("values.csv")
+
+parameter <- "GB020"
+param.filtered <- v[v$Parameter_ID == parameter,]
+
+lang.param.subset <- l[l$ID %in% param.filtered$Language_ID & l$macroarea != "",]
+colnames(lang.param.subset)[1] <- "Language_ID"
+merged <- merge(lang.param.subset, v[v$Parameter_ID == parameter,], by = "Language_ID", all = TRUE)
+
+merged.df <- as.data.frame(table(merged$Value, merged$macroarea))
+merged.transformed <- transform(merged.df, Totals = ave(merged.df$Freq, merged.df$Var2, FUN=sum))
+merged.transformed <- transform(merged.transformed, perc = paste0(sprintf("%.2f", 100 * Freq/Totals),"%"))
+merged.transformed[merged.transformed$Freq != 0,]
+```
+
+The output should be as follows:
+
+```bash
+6     0       africa  128    316 40.51%
+7     1       africa  166    316 52.53%
+10    ?       africa   22    316  6.96%
+11    0    australia   92    111 82.88%
+12    1    australia    9    111  8.11%
+15    ?    australia   10    111  9.01%
+16    0      eurasia   73    106 68.87%
+17    1      eurasia   28    106 26.42%
+20    ?      eurasia    5    106  4.72%
+21    0 northamerica   24     62 38.71%
+22    1 northamerica   34     62 54.84%
+25    ? northamerica    4     62  6.45%
+26    0      pacific  150    258 58.14%
+27    1      pacific  102    258 39.53%
+30    ?      pacific    6    258  2.33%
+31    0 southamerica   72    112 64.29%
+32    1 southamerica   20    112 17.86%
+35    ? southamerica   20    112 17.86%
+```
+
+A simple plot that illustrates the individual distributions can be achieved by using the external library `lattice` (the following snippet assumes that you are still in the same `R` session as when the table above was created):
+
+```R
+library(lattice)
+merged.transformed <- transform(merged.transformed, perc = 100 * Freq/Totals)
+plot.this <- merged.transformed[merged.transformed$Freq != 0,]
+barchart(plot.this$Var1 ~ plot.this$perc | plot.this$Var2)
+```
+
+The output should be as follows:
+
+![Barchart Feature Distribution](https://raw.githubusercontent.com/clld/recipes/master/Grambank/RPlotExample.png)
