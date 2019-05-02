@@ -15,17 +15,19 @@ def areality(metadata, feature_id):
         raise ValueError('unknown Grambank feature ID: {0}'.format(feature_id))
 
     # Information about macroareas is stored in table with language metadata:
-    area_map = {l['ID']: l['macroarea'] for l in grambank['LanguageTable']}
+    area_map = {l['ID']: l['Macroarea'] for l in grambank['LanguageTable']}
 
     # We want to map numeric feature values to more descriptive ones, thus we
     # have to read the value descriptions from the parameters table:
-    codes = {k: v for k, _, v in [c.partition(':') for c in feature['Domain']]}
+    codes = {c['ID']: c['Description'] for c in grambank['CodeTable']}
 
     res = Counter()
     for value in grambank['ValueTable']:
         if value['Parameter_ID'] == feature_id:
             # We count the occurrences of each value by (area, code):
-            res.update([(area_map[value['Language_ID']], codes[value['Value']])])
+            res.update([(
+                area_map[value['Language_ID']], 
+                codes[value['Code_ID']] if value['Code_ID'] else 'Not known')])
     return feature, res
 
 

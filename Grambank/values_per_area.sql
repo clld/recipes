@@ -1,28 +1,29 @@
 SELECT
-  q1.macroarea, Value, cast(count_one AS float) / count_all * 100
+  q1.cldf_macroarea, coalesce(cldf_value, '?'), cast(count_one AS float) / count_all * 100
 FROM
   (
     SELECT 
-      l.macroarea, count(v.id) AS count_all 
+      l.cldf_macroarea, count(v.cldf_id) AS count_all 
     FROM 
       ValueTable AS v, LanguageTable AS l 
     WHERE 
-      l.macroarea IS NOT NULL AND l.ID = v.Language_ID AND v.Parameter_ID = 'GB020'
+      l.cldf_macroarea IS NOT NULL AND l.cldf_id = v.cldf_languageReference AND v.cldf_parameterReference = 'GB020'
     GROUP BY 
-      l.macroarea
+      l.cldf_macroarea
   ) as q1
   LEFT JOIN
   (
     SELECT 
-      l.macroarea, v.Value, count(v.id) AS count_one 
+      l.cldf_macroarea, v.cldf_value, count(v.cldf_id) AS count_one 
     FROM 
       ValueTable AS v, LanguageTable AS l 
     WHERE 
-      l.macroarea IS NOT NULL AND l.ID = v.Language_ID AND v.Parameter_ID = 'GB020' 
+      l.cldf_macroarea IS NOT NULL AND l.cldf_id = v.cldf_languageReference AND v.cldf_parameterReference = 'GB020' 
     GROUP BY 
-      l.macroarea, v.Value
+      l.cldf_macroarea, v.cldf_value
     ) as q2
-    ON q1.macroarea = q2.macroarea
+    ON q1.cldf_macroarea = q2.cldf_macroarea
 ORDER BY
-  q1.macroarea, Value
+  q1.cldf_macroarea, coalesce(cldf_value, '?')
 ;
+

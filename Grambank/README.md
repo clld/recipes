@@ -8,6 +8,7 @@ unzipped download of the CLDF dataset to be available on a local disk, i.e. a di
 - `values.csv`: The main data file, containing all codings
 - `languages.csv`
 - `parameters.csv`
+- `codes.csv`
 - `sources.bib`
 
 
@@ -169,30 +170,30 @@ $ python cldf_example.py StructureDataset-metadata.json GB020
 
 GB020: Are there definite or specific articles?
 
-africa
-  Not known: 6.96%
-  absent: 40.51%
-  present: 52.53%
-australia
-  Not known: 9.01%
-  absent: 82.88%
-  present: 8.11%
-eurasia
-  Not known: 4.72%
-  absent: 68.87%
-  present: 26.42%
-northamerica
-  Not known: 6.45%
-  absent: 38.71%
-  present: 54.84%
-pacific
-  Not known: 2.33%
-  absent: 58.14%
-  present: 39.53%
-southamerica
-  Not known: 17.86%
-  absent: 64.29%
-  present: 17.86%
+Africa
+  Not known: 8.78%
+  absent: 41.95%
+  present: 49.27%
+Australia
+  Not known: 12.95%
+  absent: 79.14%
+  present: 7.91%
+Eurasia
+  Not known: 2.36%
+  absent: 75.59%
+  present: 22.05%
+North America
+  Not known: 8.97%
+  absent: 38.46%
+  present: 52.56%
+Papunesia
+  Not known: 5.17%
+  absent: 55.17%
+  present: 39.67%
+South America
+  Not known: 22.60%
+  absent: 61.02%
+  present: 16.38%
 ```
 
 <a id="sqlite"> </a>
@@ -208,32 +209,31 @@ INFO    <cldf:v1.0:StructureDataset at .> loaded in grambank.sqlite
 real	0m12.584s
 ```
 
-While loading the dataset into SQLite isn't particularly quick, querying the database may make
-be a lot quicker than the equivalent operations using Python. So the SQL query in 
+While loading the dataset into SQLite isn't particularly quick, querying the database may be a lot quicker than the equivalent operations using Python. So the SQL query in 
 [`values_per_area.sql`](values_per_area.sql), which is roughly equivalent to the example above, runs in
 less than 0.1 secs:
 ```bash
 $ time cat values_per_area.sql | sqlite3 grambank.sqlite 
-africa|0|40.5063291139241
-africa|1|52.5316455696203
-africa|?|6.9620253164557
-australia|0|82.8828828828829
-australia|1|8.10810810810811
-australia|?|9.00900900900901
-eurasia|0|68.8679245283019
-eurasia|1|26.4150943396226
-eurasia|?|4.71698113207547
-northamerica|0|38.7096774193548
-northamerica|1|54.8387096774194
-northamerica|?|6.45161290322581
-pacific|0|58.1395348837209
-pacific|1|39.5348837209302
-pacific|?|2.32558139534884
-southamerica|0|64.2857142857143
-southamerica|1|17.8571428571429
-southamerica|?|17.8571428571429
+Africa|0|41.9512195121951
+Africa|1|49.2682926829268
+Africa|?|8.78048780487805
+Australia|0|79.136690647482
+Australia|1|7.9136690647482
+Australia|?|12.9496402877698
+Eurasia|0|75.5905511811024
+Eurasia|1|22.0472440944882
+Eurasia|?|2.36220472440945
+North America|0|38.4615384615385
+North America|1|52.5641025641026
+North America|?|8.97435897435897
+Papunesia|0|55.1652892561983
+Papunesia|1|39.6694214876033
+Papunesia|?|5.16528925619835
+South America|0|61.0169491525424
+South America|1|16.3841807909604
+South America|?|22.5988700564972
 
-real	0m0.066s
+real	0m0.110s
 ```
 
 <a id="r"> </a>
