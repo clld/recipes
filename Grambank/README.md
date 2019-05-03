@@ -248,11 +248,11 @@ v <- read.csv("values.csv")
 parameter <- "GB020"
 param.filtered <- v[v$Parameter_ID == parameter,]
 
-lang.param.subset <- l[l$ID %in% param.filtered$Language_ID & l$macroarea != "",]
+lang.param.subset <- l[l$ID %in% param.filtered$Language_ID & l$Macroarea != "",]
 colnames(lang.param.subset)[1] <- "Language_ID"
 merged <- merge(lang.param.subset, v[v$Parameter_ID == parameter,], by = "Language_ID", all = TRUE)
 
-merged.df <- as.data.frame(table(merged$Value, merged$macroarea))
+merged.df <- as.data.frame(table(merged$Value, merged$Macroarea))
 merged.transformed <- transform(merged.df, Totals = ave(merged.df$Freq, merged.df$Var2, FUN=sum))
 merged.transformed <- transform(merged.transformed, perc = paste0(sprintf("%.2f", 100 * Freq/Totals),"%"))
 merged.transformed[merged.transformed$Freq != 0,]
@@ -261,24 +261,25 @@ merged.transformed[merged.transformed$Freq != 0,]
 The output should be as follows:
 
 ```bash
-6     0       africa  128    316 40.51%
-7     1       africa  166    316 52.53%
-10    ?       africa   22    316  6.96%
-11    0    australia   92    111 82.88%
-12    1    australia    9    111  8.11%
-15    ?    australia   10    111  9.01%
-16    0      eurasia   73    106 68.87%
-17    1      eurasia   28    106 26.42%
-20    ?      eurasia    5    106  4.72%
-21    0 northamerica   24     62 38.71%
-22    1 northamerica   34     62 54.84%
-25    ? northamerica    4     62  6.45%
-26    0      pacific  150    258 58.14%
-27    1      pacific  102    258 39.53%
-30    ?      pacific    6    258  2.33%
-31    0 southamerica   72    112 64.29%
-32    1 southamerica   20    112 17.86%
-35    ? southamerica   20    112 17.86%
+   Values   Macroarea Freq Totals   Perc
+1     ?        Africa   36    410  8.78%
+2     0        Africa  172    410 41.95%
+3     1        Africa  202    410 49.27%
+6     ?     Australia   18    139 12.95%
+7     0     Australia  110    139 79.14%
+8     1     Australia   11    139  7.91%
+11    ?       Eurasia    6    254  2.36%
+12    0       Eurasia  192    254 75.59%
+13    1       Eurasia   56    254 22.05%
+16    ? North America   14    156  8.97%
+17    0 North America   60    156 38.46%
+18    1 North America   82    156 52.56%
+21    ?     Papunesia   25    484  5.17%
+22    0     Papunesia  267    484 55.17%
+23    1     Papunesia  192    484 39.67%
+26    ? South America   40    177 22.60%
+27    0 South America  108    177 61.02%
+28    1 South America   29    177 16.38%
 ```
 
 A simple plot that illustrates the individual distributions can be achieved by using the external library `lattice` (the following snippet assumes that you are still in the same `R` session as when the table above was created):
@@ -287,7 +288,7 @@ A simple plot that illustrates the individual distributions can be achieved by u
 library(lattice)
 merged.transformed <- transform(merged.transformed, perc = 100 * Freq/Totals)
 plot.this <- merged.transformed[merged.transformed$Freq != 0,]
-barchart(plot.this$Var1 ~ plot.this$perc | plot.this$Var2)
+barchart(plot.this$Var1 ~ plot.this$perc | plot.this$Var2, xlab="Are there definite or specific articles? (1 = present/0 = absent/? = not known)")
 ```
 
 The output should be as follows:
